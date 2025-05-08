@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 export default function Hero() {
+  const [firstDone, setFirstDone] = useState(false)
   return (
     <section className="flex flex-col items-center justify-center h-screen text-white bg-gradient-to-b from-black to-gray-900">
       <h1 className="text-4xl sm:text-6xl font-bold mb-6">Hi, I&apos;m <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-pulse">Darrian!</span></h1>
