@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
+import { FaWindows } from 'react-icons/fa'
+import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
 export default function Hero() {
   const [firstDone, setFirstDone] = useState(false)
 
   // First line hook
   const [line1] = useTypewriter({
-    words: ['darrian.bat'],
+    words: ['darrian.exe'],
     loop: 1,
-    typeSpeed: 90,
+    typeSpeed: 70,
     deleteSpeed: 0,
     onLoopDone: () => setFirstDone(true),
   })
@@ -19,7 +21,7 @@ export default function Hero() {
         "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
       ],
       loop: 1,
-      typeSpeed: 90,
+      typeSpeed: 80,
       deleteSpeed: 0,
     })
     return (
@@ -31,18 +33,41 @@ export default function Hero() {
   }
 
   return (
-    <section className="flex flex-col items-center justify-center h-screen text-white bg-gradient-to-b from-black to-gray-900">
-      {/* …your name heading… */}
-      <h1 className="text-4xl sm:text-6xl font-bold mb-6">Hi, I&apos;m <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-pulse">Darrian!</span></h1>
-      <div className="bg-black text-green-500 p-6 rounded-sm font-mono text-base w-full max-w-2xl shadow-md border border-gray-700">
-        {/* First command */}
-        <p className="mb-1">
-          C:\Users\Guest&gt; {line1}
-          {!firstDone && <Cursor cursorStyle="█" />}
-        </p>
+    <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
+      <h1 className="text-4xl sm:text-6xl font-bold mb-6">
+        Hi, I&apos;m{' '}
+        <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-pulse">
+          Darrian!
+        </span>
+      </h1>
 
-        {/* Render second only after firstDone */}
-        {firstDone && <SecondLine />}
+      <div className="w-full max-w-2xl bg-black border border-gray-700 rounded-sm shadow-md">
+        {/* ───────── Title Bar ───────── */}
+        <div className="flex items-center justify-between bg-gray-800 px-4 py-1 rounded-t-sm border-b border-gray-700">
+          <div className="flex items-center space-x-2">
+            <FaWindows className="text-green-500" />
+            <span className="text-green-200 text-sm">Command Prompt</span>
+          </div>
+          <div className="flex items-center space-x-2 text-green-200">
+            <button className="hover:text-white"><FiMinus /></button>
+            <button className="hover:text-white"><FiSquare /></button>
+            <button className="hover:text-white"><FiX /></button>
+          </div>
+        </div>
+
+        {/* ───────── Content ───────── */}
+        <div className="p-6 font-mono text-base text-green-500">
+          <p className="mb-1">
+            C:\Users\Guest&gt; {line1}
+            {!firstDone && <Cursor cursorStyle="█" />}
+          </p>
+          {firstDone && (
+            <p className="mt-1">
+              C:\Users\Guest&gt; {line2}
+              <Cursor cursorStyle="█" />
+            </p>
+          )}
+        </div>
       </div>
     </section>
   )
