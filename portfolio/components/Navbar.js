@@ -1,5 +1,4 @@
 import React from 'react';
-
 export default function Navbar() {
     return (
         <nav className="fixed w-full bg-white/80 backdrop-blur-md py-4 z-10">
