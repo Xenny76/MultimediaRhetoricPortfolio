@@ -10,7 +10,7 @@ export default function Hero() {
 
   // 1) After 0.5s, render the first prompt
   useEffect(() => {
-    const t = setTimeout(() => setShowFirst(true), 200)
+    const t = setTimeout(() => setShowFirst(true), 400)
     return () => clearTimeout(t)
   }, [])
 
@@ -20,14 +20,14 @@ export default function Hero() {
     loop: 1,
     typeSpeed: 140,    // slow
     deleteSpeed: 0,
-    delaySpeed: 300,     // start immediately once mounted
+    delaySpeed: 500,     // start immediately once mounted
     onLoopDone: () => setFirstDone(true),
   })
 
   // 3) When firstDone flips, after 0.3s mount the second prompt
   useEffect(() => {
     if (!firstDone) return
-    const t = setTimeout(() => setShowSecond(true), 300)
+    const t = setTimeout(() => setShowSecond(true), 500)
     return () => clearTimeout(t)
   }, [firstDone])
 
@@ -38,9 +38,9 @@ export default function Hero() {
         "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
       ],
       loop: 1,
-      typeSpeed: 65,     // fast
+      typeSpeed: 50,     // fast
       deleteSpeed: 0,
-      delaySpeed: 300,     // start immediately once mounted
+      delaySpeed: 500,     // start immediately once mounted
     })
     return (
       <p className="mt-1">
