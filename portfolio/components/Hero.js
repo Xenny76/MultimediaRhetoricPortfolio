@@ -25,7 +25,7 @@ export default function Hero() {
           cursorStyle="█"
           typeSpeed={65}
           deleteSpeed={50}
-          delaySpeed={1500}
+          delaySpeed={1800}
         /></p>
       </div>
     </section>
