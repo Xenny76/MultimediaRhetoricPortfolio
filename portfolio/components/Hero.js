@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 import { FaWindows } from 'react-icons/fa'
 import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
+
 export default function Hero() {
   const [firstDone, setFirstDone] = useState(false)
 
@@ -14,7 +15,7 @@ export default function Hero() {
     onLoopDone: () => setFirstDone(true),
   })
 
-  // Second line is its own component so its hook only runs *after* firstDone
+  // Nested component for the second line
   const SecondLine = () => {
     const [line2] = useTypewriter({
       words: [
@@ -34,6 +35,7 @@ export default function Hero() {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
+      {/* Heading */}
       <h1 className="text-4xl sm:text-6xl font-bold mb-6">
         Hi, I&apos;m{' '}
         <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-pulse">
@@ -41,8 +43,9 @@ export default function Hero() {
         </span>
       </h1>
 
+      {/* Windows CMD window */}
       <div className="w-full max-w-2xl bg-black border border-gray-700 rounded-sm shadow-md">
-        {/* ───────── Title Bar ───────── */}
+        {/* Title bar */}
         <div className="flex items-center justify-between bg-gray-800 px-4 py-1 rounded-t-sm border-b border-gray-700">
           <div className="flex items-center space-x-2">
             <FaWindows className="text-green-500" />
@@ -55,13 +58,16 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ───────── Content ───────── */}
+        {/* Content */}
         <div className="p-6 font-mono text-base text-green-500">
+          {/* First command */}
           <p className="mb-1">
             C:\Users\Guest&gt; {line1}
             {!firstDone && <Cursor cursorStyle="█" />}
           </p>
-          {firstDone && <secondLine/>}
+
+          {/* Second command, rendered only after first is done */}
+          {firstDone && <SecondLine />}
         </div>
       </div>
     </section>
