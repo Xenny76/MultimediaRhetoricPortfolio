@@ -4,55 +4,52 @@ import { FaWindows } from 'react-icons/fa'
 import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
 
 export default function Hero() {
-  const [showFirst, setShowFirst] = useState(false)
+  const [showFirstType, setShowFirstType] = useState(false)
   const [firstDone, setFirstDone] = useState(false)
-  const [showSecond, setShowSecond] = useState(false)
+  const [showSecondPrompt, setShowSecondPrompt] = useState(false)
+  const [showSecondType, setShowSecondType] = useState(false)
 
-  // 1) After 0.5s, render the first prompt
+  // 1) Delay before starting to type line 1
   useEffect(() => {
-    const t = setTimeout(() => setShowFirst(true), 400)
+    const t = setTimeout(() => setShowFirstType(true), 500) // 0.5s delay
     return () => clearTimeout(t)
   }, [])
 
-  // 2) First line: no initial delay, slow typing, signal when done
+  // 2) Hook for line 1
   const [line1] = useTypewriter({
     words: ['darrian.exe'],
     loop: 1,
-    typeSpeed: 140,    // slow
+    typeSpeed: 130,   // slow
     deleteSpeed: 0,
-    delaySpeed: 3500,     // start immediately once mounted
     onLoopDone: () => setFirstDone(true),
   })
 
-  // 3) When firstDone flips, after 0.3s mount the second prompt
+  // 3) After line 1 finishes, delay showing line 2’s prompt
   useEffect(() => {
     if (!firstDone) return
-    const t = setTimeout(() => setShowSecond(true), 500)
+    const t = setTimeout(() => setShowSecondPrompt(true), 500) // 0.5s delay
     return () => clearTimeout(t)
   }, [firstDone])
 
-  // 4) Second line lives in its own component so its hook only runs once showSecond=true
-  const SecondLine = () => {
-    const [line2] = useTypewriter({
-      words: [
-        "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
-      ],
-      loop: 1,
-      typeSpeed: 50,     // fast
-      deleteSpeed: 0,
-      delaySpeed: 3500,     // start immediately once mounted
-    })
-    return (
-      <p className="mt-1">
-        C:\Users\Guest&gt; {line2}
-        <Cursor cursorStyle="▄" />
-      </p>
-    )
-  }
+  // 4) Once the prompt is visible, delay before typing line 2
+  useEffect(() => {
+    if (!showSecondPrompt) return
+    const t = setTimeout(() => setShowSecondType(true), 500) // 0.5s delay
+    return () => clearTimeout(t)
+  }, [showSecondPrompt])
+
+  // 5) Hook for line 2
+  const [line2] = useTypewriter({
+    words: [
+      "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
+    ],
+    loop: 1,
+    typeSpeed: 50,    // fast
+    deleteSpeed: 0,
+  })
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
-      {/* Heading */}
       <h1 className="text-4xl sm:text-6xl font-bold mb-6">
         Hi, I&apos;m{' '}
         <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-pulse">
@@ -60,9 +57,8 @@ export default function Hero() {
         </span>
       </h1>
 
-      {/* Windows CMD window */}
       <div className="w-full max-w-2xl bg-black border border-gray-700 rounded-sm shadow-md">
-        {/* Title bar */}
+        {/* Title Bar */}
         <div className="flex items-center justify-between bg-gray-800 px-4 py-1 rounded-t-sm border-b border-gray-700">
           <div className="flex items-center space-x-2">
             <FaWindows className="text-green-500" />
@@ -77,17 +73,29 @@ export default function Hero() {
 
         {/* Content */}
         <div className="p-6 font-mono text-base text-green-500">
-          {/* First command (only when showFirst=true) */}
-          {showFirst && (
-            <p className="mb-1">
-              C:\Users\Guest&gt; {line1}
-              {/* thick block cursor while typing */}
-              {!firstDone && <Cursor cursorStyle="▄" />}
+          {/* Line 1 prompt always visible; typing only after showFirstType */}
+          <p className="mb-1">
+            C:\Users\Guest&gt;
+            {showFirstType && (
+              <>
+                {' '}{line1}
+                {!firstDone && <Cursor cursorStyle="▄" />}
+              </>
+            )}
+          </p>
+
+          {/* Line 2 prompt & typing */}
+          {showSecondPrompt && (
+            <p className="mt-1">
+              C:\Users\Guest&gt;
+              {showSecondType && (
+                <>
+                  {' '}{line2}
+                  <Cursor cursorStyle="▄" />
+                </>
+              )}
             </p>
           )}
-
-          {/* Second command (only when showSecond=true) */}
-          {showSecond && <SecondLine />}
         </div>
       </div>
     </section>
