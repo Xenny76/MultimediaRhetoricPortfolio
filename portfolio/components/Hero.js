@@ -1,36 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 import { FaWindows } from 'react-icons/fa'
 import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
-export default function Hero() {
-  const [firstDone, setFirstDone] = useState(false)
 
-  // First command types slowly
+export default function Hero() {
+  const [showFirst, setShowFirst] = useState(false)
+  const [firstDone, setFirstDone] = useState(false)
+  const [showSecond, setShowSecond] = useState(false)
+
+  // 1. initial delay before showing first prompt
+  useEffect(() => {
+    const t = setTimeout(() => setShowFirst(true), 300)  // 0.5s
+    return () => clearTimeout(t)
+  }, [])
+
+  // 2. first line typewriter
   const [line1] = useTypewriter({
     words: ['darrian.exe'],
     loop: 1,
-    typeSpeed: 140,      // ← slower
+    typeSpeed: 140,      // slow
     deleteSpeed: 0,
     onLoopDone: () => setFirstDone(true),
   })
 
-  // Second command types more quickly
-  const SecondLine = () => {
-    const [line2] = useTypewriter({
-      words: [
-        "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
-      ],
-      loop: 1,
-      typeSpeed: 65,       // ← faster
-      deleteSpeed: 0,
-    })
-    return (
-      <p className="mt-1">
-        C:\Users\Guest&gt; {line2}
-        <Cursor cursorStyle="▄" />  {/* ← short underscore cursor */}
-      </p>
-    )
-  }
+  // 3. when first is done, delay before showing second
+  useEffect(() => {
+    if (!firstDone) return
+    const t = setTimeout(() => setShowSecond(true), 200)  // 0.5s
+    return () => clearTimeout(t)
+  }, [firstDone])
+
+  // 4. second line typewriter
+  const [line2] = useTypewriter({
+    words: [
+      "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
+    ],
+    loop: 1,
+    typeSpeed: 65,       // fast
+    deleteSpeed: 0,
+  })
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
@@ -57,14 +65,21 @@ export default function Hero() {
 
         {/* Content */}
         <div className="p-6 font-mono text-base text-green-500">
-          {/* First command */}
-          <p className="mb-1">
-            C:\Users\Guest&gt; {line1}
-            {!firstDone && <Cursor cursorStyle="▄" />}
-          </p>
+          {/* First command (only when showFirst=true) */}
+          {showFirst && (
+            <p className="mb-1">
+              C:\Users\Guest&gt; {line1}
+              {!firstDone && <Cursor cursorStyle="▄" />}
+            </p>
+          )}
 
-          {/* Second command kicks in once the first is done */}
-          {firstDone && <SecondLine />}
+          {/* Second command (only when showSecond=true) */}
+          {showSecond && (
+            <p className="mt-1">
+              C:\Users\Guest&gt; {line2}
+              <Cursor cursorStyle="▄" />
+            </p>
+          )}
         </div>
       </div>
     </section>
