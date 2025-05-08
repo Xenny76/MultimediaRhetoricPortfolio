@@ -9,15 +9,23 @@ export default function Hero() {
         <p className="mb-1">Microsoft Windows [Version 10.0.19045.3570]</p>
         <p className="mb-3">(c) Microsoft Corporation. All rights reserved.</p>
         <p></p>
-        <p className="mb-1">C:\Users\Guest&gt; darrian.bat</p>
+        <p className="mb-1">C:\Users\Guest&gt; <Typewriter
+          words={['darrian.bat']}
+          loop={1}
+          cursor
+          cursorStyle="█"
+          typeSpeed={65}
+          deleteSpeed={50}
+          delaySpeed={1500}
+        /></p>
         <p>C:\Users\Guest&gt; <Typewriter
           words={['Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let\'s innovate!']}
           loop={1}
           cursor
           cursorStyle="█"
-          typeSpeed={70}
+          typeSpeed={65}
           deleteSpeed={50}
-          delaySpeed={1000}
+          delaySpeed={1500}
         /></p>
       </div>
     </section>
