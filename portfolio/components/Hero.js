@@ -20,7 +20,7 @@ export default function Hero() {
     loop: 1,
     typeSpeed: 140,    // slow
     deleteSpeed: 0,
-    delaySpeed: 500,     // start immediately once mounted
+    delaySpeed: 1500,     // start immediately once mounted
     onLoopDone: () => setFirstDone(true),
   })
 
@@ -40,7 +40,7 @@ export default function Hero() {
       loop: 1,
       typeSpeed: 50,     // fast
       deleteSpeed: 0,
-      delaySpeed: 500,     // start immediately once mounted
+      delaySpeed: 1500,     // start immediately once mounted
     })
     return (
       <p className="mt-1">
