@@ -1,5 +1,4 @@
 import { Typewriter } from 'react-simple-typewriter';
-import 'react-simple-typewriter/dist/index.css';
 export default function Hero() {
   return (
     <section className="flex flex-col items-center justify-center h-screen text-white bg-gradient-to-b from-black to-gray-900">
