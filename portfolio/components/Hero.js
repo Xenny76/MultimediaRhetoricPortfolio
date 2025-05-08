@@ -3,7 +3,7 @@ import 'react-simple-typewriter/dist/index.css';
 export default function Hero() {
   return (
     <section className="flex flex-col items-center justify-center h-screen text-white bg-gradient-to-b from-black to-gray-900">
-      <h1 className="text-4xl sm:text-6xl font-bold mb-6">Hi, I'm <span className="text-green-400">Fayed!</span></h1>
+      <h1 className="text-4xl sm:text-6xl font-bold mb-6">Hi, I&apos;m <span className="text-green-400">Darrian!</span></h1>
 
       {/* Windows CMD-style box */}
       <div className="bg-black text-green-500 p-6 rounded-sm font-mono text-base w-full max-w-2xl shadow-md border border-gray-700">
