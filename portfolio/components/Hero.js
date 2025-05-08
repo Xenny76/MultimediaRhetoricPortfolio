@@ -10,7 +10,7 @@ export default function Hero() {
   const [line1] = useTypewriter({
     words: ['darrian.exe'],
     loop: 1,
-    typeSpeed: 100,
+    typeSpeed: 110,
     deleteSpeed: 0,
     onLoopDone: () => setFirstDone(true),
   })
@@ -22,7 +22,7 @@ export default function Hero() {
         "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
       ],
       loop: 1,
-      typeSpeed: 80,
+      typeSpeed: 70,
       deleteSpeed: 0,
     })
     return (
