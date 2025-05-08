@@ -15,7 +15,7 @@ export default function Hero() {
   })
 
   // Second line is its own component so its hook only runs *after* firstDone
-  const SecondLine = () => {
+  const [line2] = () => {
     const [line2] = useTypewriter({
       words: [
         "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
