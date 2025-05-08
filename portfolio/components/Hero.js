@@ -1,47 +1,55 @@
 import { useState, useEffect } from 'react'
-import { useTypewriter, Cursor } from 'react-simple-typewriter'
 import { FaWindows } from 'react-icons/fa'
 import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
 
 export default function Hero() {
-  // Control when typing kicks off
-  const [showFirstType, setShowFirstType] = useState(false)
-  const [showSecondPrompt, setShowSecondPrompt] = useState(false)
-  const [showSecondType, setShowSecondType] = useState(false)
+  // The two lines we want to type
+  const lines = [
+    'darrian.exe',
+    "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
+  ]
 
-  // 1) After 0.5s, start typing the first line
+  // Typing configuration
+  const initialDelay = 500   // ms before first line starts typing
+  const betweenDelay = 500   // ms between line1 finishing and line2 prompt showing
+  const typeSpeed = [130, 55]// ms per character for line1 and line2
+
+  // State
+  const [displayTexts, setDisplayTexts] = useState(['', ''])       // what’s shown so far
+  const [showPrompt, setShowPrompt] = useState([true, false])      // prompts always visible
+  const [cursorVisible, setCursorVisible] = useState(true)         // blinking cursor
+  const [currentLine, setCurrentLine] = useState(0)                // which line are we typing
+
+  // Blink the cursor
   useEffect(() => {
-    const timer = setTimeout(() => setShowFirstType(true), 500)
-    return () => clearTimeout(timer)
+    const iv = setInterval(() => setCursorVisible(v => !v), 500)
+    return () => clearInterval(iv)
   }, [])
 
-  // 2) First-line hook: no built-in delay, we handle it above
-  const [line1, count1] = useTypewriter({
-    words: ['darrian.exe'],
-    loop: 1,
-    typeSpeed: 130,   // slow
-    deleteSpeed: 0,
-    delaySpeed: 0,    // immediate once mounted
-  })
-
-  // 3) Once loop=1 (i.e. first line done), show prompt #2 and queue its typing
+  // Type a given line
   useEffect(() => {
-    if (count1 !== 1) return
-    setShowSecondPrompt(true)
-    const timer = setTimeout(() => setShowSecondType(true), 500)
-    return () => clearTimeout(timer)
-  }, [count1])
+    if (!showPrompt[currentLine]) return
+    let idx = 0
 
-  // 4) Second-line hook
-  const [line2] = useTypewriter({
-    words: [
-      "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
-    ],
-    loop: 1,
-    typeSpeed: 50,    // fast
-    deleteSpeed: 0,
-    delaySpeed: 0,    // immediate once mounted
-  })
+    // Start typing after appropriate initial delay
+    const startDelay = currentLine === 0 ? initialDelay : betweenDelay
+    const timeoutId = setTimeout(function tick() {
+      if (idx < lines[currentLine].length) {
+        setDisplayTexts(dt => {
+          const copy = [...dt]
+          copy[currentLine] += lines[currentLine][idx++]
+          return copy
+        })
+        setTimeout(tick, typeSpeed[currentLine])
+      } else if (currentLine === 0) {
+        // first line finished → show second prompt
+        setCurrentLine(1)
+        setShowPrompt(sp => [sp[0], true])
+      }
+    }, startDelay)
+
+    return () => clearTimeout(timeoutId)
+  }, [showPrompt, currentLine])
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
@@ -70,29 +78,13 @@ export default function Hero() {
 
         {/* Content */}
         <div className="p-6 font-mono text-base text-green-500">
-          {/* First prompt & typing */}
-          <p className="mb-1">
-            C:\Users\Guest&gt;{' '}
-            {showFirstType && (
-              <>
-                {line1}
-                <Cursor cursorStyle="▄" />
-              </>
-            )}
-          </p>
-
-          {/* Second prompt & typing */}
-          {showSecondPrompt && (
-            <p className="mt-1">
-              C:\Users\Guest&gt;{' '}
-              {showSecondType && (
-                <>
-                  {line2}
-                  <Cursor cursorStyle="▄" />
-                </>
-              )}
+          {lines.map((_, i) => (
+            <p key={i} className={i === 0 ? 'mb-1' : 'mt-1'}>
+              C:\Users\Guest&gt;&nbsp;
+              { showPrompt[i] && displayTexts[i] }
+              { showPrompt[i] && cursorVisible && <span className="inline-block">▄</span> }
             </p>
-          )}
+          ))}
         </div>
       </div>
     </section>
