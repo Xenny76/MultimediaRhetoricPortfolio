@@ -9,9 +9,9 @@ export default function Hero() {
                 className="text-center"
             >
                 <p className="text-lg text-gray-500 mb-2"># zsh</p>
-                <h1 className="text-4x1 font-bold mb-2">Hi, I'm Darrian!</h1>
+                <h1 className="text-4x1 font-bold mb-2">Hi, I am Darrian!</h1>
                 <p className="text-gray-600 mb-6">Full-Stack Developer | Tech Enthusiast | Student</p>
-                <p className="max-w-x1 mx-auto text-gray-700">I'm a student developer at Neumont College of Computer Science, specializing in C# and Java</p>
+                <p className="max-w-x1 mx-auto text-gray-700">I am a student developer at Neumont College of Computer Science, specializing in C# and Java</p>
             </motion.div>
         </section>
     );
