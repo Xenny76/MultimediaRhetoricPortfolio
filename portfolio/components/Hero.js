@@ -61,12 +61,7 @@ export default function Hero() {
             C:\Users\Guest&gt; {line1}
             {!firstDone && <Cursor cursorStyle="█" />}
           </p>
-          {firstDone && (
-            <p className="mt-1">
-              C:\Users\Guest&gt; {SecondLine()}
-              <Cursor cursorStyle="█" />
-            </p>
-          )}
+          {firstDone && <secondLine/>}
         </div>
       </div>
     </section>
