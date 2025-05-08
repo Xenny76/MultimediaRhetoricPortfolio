@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 export default function Hero() {
     return (
         <section id="home" className="h-screen flex-col items-center justify-center bg-gray-100">
