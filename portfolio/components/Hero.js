@@ -3,50 +3,65 @@ import { useTypewriter, Cursor } from 'react-simple-typewriter'
 import { FaWindows } from 'react-icons/fa'
 import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
 
+/** Nested component for the first line */
+function FirstLine({ onDone }) {
+  const [text] = useTypewriter({
+    words: ['darrian.exe'],
+    loop: 1,
+    typeSpeed: 100,   // slow
+    deleteSpeed: 0,
+    onLoopDone: onDone,
+  })
+  return (
+    <>
+      {text}
+      <Cursor cursorStyle="▄" />
+    </>
+  )
+}
+
+/** Nested component for the second line */
+function SecondLine() {
+  const [text] = useTypewriter({
+    words: [
+      "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
+    ],
+    loop: 1,
+    typeSpeed: 30,    // fast
+    deleteSpeed: 0,
+  })
+  return (
+    <>
+      {text}
+      <Cursor cursorStyle="▄" />
+    </>
+  )
+}
+
 export default function Hero() {
   const [showFirstType, setShowFirstType] = useState(false)
   const [firstDone, setFirstDone] = useState(false)
   const [showSecondPrompt, setShowSecondPrompt] = useState(false)
   const [showSecondType, setShowSecondType] = useState(false)
 
-  // 1) Delay before starting to type line 1
+  // 1) Delay before mounting FirstLine
   useEffect(() => {
-    const t = setTimeout(() => setShowFirstType(true), 500) // 0.5s delay
+    const t = setTimeout(() => setShowFirstType(true), 500) // 0.5s
     return () => clearTimeout(t)
   }, [])
 
-  // 2) Hook for line 1
-  const [line1] = useTypewriter({
-    words: ['darrian.exe'],
-    loop: 1,
-    typeSpeed: 130,   // slow
-    deleteSpeed: 0,
-    onLoopDone: () => setFirstDone(true),
-  })
-
-  // 3) After line 1 finishes, delay showing line 2’s prompt
+  // 2) Once FirstLine finishes, show the second prompt
   useEffect(() => {
     if (!firstDone) return
-    const t = setTimeout(() => setShowSecondPrompt(true), 500) // 0.5s delay
-    return () => clearTimeout(t)
+    setShowSecondPrompt(true)
   }, [firstDone])
 
-  // 4) Once the prompt is visible, delay before typing line 2
+  // 3) Once the second prompt is visible, delay before mounting SecondLine
   useEffect(() => {
     if (!showSecondPrompt) return
-    const t = setTimeout(() => setShowSecondType(true), 500) // 0.5s delay
+    const t = setTimeout(() => setShowSecondType(true), 500) // 0.5s
     return () => clearTimeout(t)
   }, [showSecondPrompt])
-
-  // 5) Hook for line 2
-  const [line2] = useTypewriter({
-    words: [
-      "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
-    ],
-    loop: 1,
-    typeSpeed: 50,    // fast
-    deleteSpeed: 0,
-  })
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
@@ -58,7 +73,7 @@ export default function Hero() {
       </h1>
 
       <div className="w-full max-w-2xl bg-black border border-gray-700 rounded-sm shadow-md">
-        {/* Title Bar */}
+        {/* Title bar */}
         <div className="flex items-center justify-between bg-gray-800 px-4 py-1 rounded-t-sm border-b border-gray-700">
           <div className="flex items-center space-x-2">
             <FaWindows className="text-green-500" />
@@ -73,27 +88,19 @@ export default function Hero() {
 
         {/* Content */}
         <div className="p-6 font-mono text-base text-green-500">
-          {/* Line 1 prompt always visible; typing only after showFirstType */}
+          {/* First prompt always visible; type only after showFirstType */}
           <p className="mb-1">
-            C:\Users\Guest&gt;
+            C:\Users\Guest&gt;{' '}
             {showFirstType && (
-              <>
-                {' '}{line1}
-                {!firstDone && <Cursor cursorStyle="▄" />}
-              </>
+              <FirstLine onDone={() => setFirstDone(true)} />
             )}
           </p>
 
-          {/* Line 2 prompt & typing */}
+          {/* Second prompt appears immediately after firstDone */}
           {showSecondPrompt && (
             <p className="mt-1">
-              C:\Users\Guest&gt;
-              {showSecondType && (
-                <>
-                  {' '}{line2}
-                  <Cursor cursorStyle="▄" />
-                </>
-              )}
+              C:\Users\Guest&gt;{' '}
+              {showSecondType && <SecondLine />}
             </p>
           )}
         </div>
