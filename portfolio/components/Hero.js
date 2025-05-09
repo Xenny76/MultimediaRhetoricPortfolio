@@ -100,7 +100,7 @@ export default function Hero() {
           <p className="mb-1">
             C:\Users\Guest&gt;{' '}
             {display1}
-            {showType1 && cursor && <span className="inline-block">▄</span>}
+            {showType1 && cursor && !showPrompt2 && <span className="inline-block">▄</span>}
           </p>
 
           {/* Line 2 */}
