@@ -8,10 +8,10 @@ export default function Hero() {
     "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!"
 
   // Timing config (ms)
-  const initialDelay = 500   // before typing 1st line
-  const betweenDelay = 500   // after finishing 1st, before showing prompt2
-  const typeSpeed1 = 100     // ms per char for line1
-  const typeSpeed2 = 30      // ms per char for line2
+  const initialDelay = 600   // before typing 1st line
+  const betweenDelay = 600   // after finishing 1st, before showing prompt2
+  const typeSpeed1 = 130     // ms per char for line1
+  const typeSpeed2 = 50      // ms per char for line2
 
   // State
   const [display1, setDisplay1] = useState('')
