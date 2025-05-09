@@ -3,21 +3,23 @@ import { FaWindows } from 'react-icons/fa'
 import { FiMinus, FiSquare, FiX } from 'react-icons/fi'
 
 export default function Hero() {
-  // Lines to type
-  const lines = [
-    'darrian.exe',
-    "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!",
-  ]
-  // Delays (ms)
-  const initialDelay = 500       // before line 1 typing
-  const betweenDelay = 500       // after line 1 finishes, before line 2 typing
-  const typeSpeed = [130, 45]    // per-char speeds
+  const line1 = 'darrian.exe'
+  const line2 =
+    "Turning ideas into code and challenges into solutions. Passionate and eager about coding and building interesting things. Let's innovate!"
+
+  // Timing config (ms)
+  const initialDelay = 500   // before typing 1st line
+  const betweenDelay = 500   // after finishing 1st, before showing prompt2
+  const typeSpeed1 = 100     // ms per char for line1
+  const typeSpeed2 = 30      // ms per char for line2
 
   // State
-  const [display, setDisplay] = useState(['', ''])   // what's been typed
-  const [showPrompt, setShowPrompt] = useState([true, false]) 
-  const [current, setCurrent] = useState(0)          // 0 or 1 or finished at 2
-  const [cursor, setCursor] = useState(true)         // blink
+  const [display1, setDisplay1] = useState('')
+  const [display2, setDisplay2] = useState('')
+  const [showPrompt2, setShowPrompt2] = useState(false)
+  const [showType1, setShowType1] = useState(false)
+  const [showType2, setShowType2] = useState(false)
+  const [cursor, setCursor] = useState(true)
 
   // Cursor blink
   useEffect(() => {
@@ -25,35 +27,49 @@ export default function Hero() {
     return () => clearInterval(iv)
   }, [])
 
-  // Orchestrate typing
+  // Phase 1: start typing line1 after initialDelay
   useEffect(() => {
+    const start = setTimeout(() => setShowType1(true), initialDelay)
+    return () => clearTimeout(start)
+  }, [])
+
+  // Actually type line1
+  useEffect(() => {
+    if (!showType1) return
     let cancelled = false
 
-    async function run() {
-      for (let i = 0; i < lines.length; i++) {
-        setCurrent(i)
-        // Make prompt visible for this line
-        setShowPrompt(sp => sp.map((v, idx) => idx <= i))
-        // Delay before typing this line
-        await new Promise(r => setTimeout(r, i === 0 ? initialDelay : betweenDelay))
-
-        // Type each character
-        for (let pos = 0; pos < lines[i].length; pos++) {
-          if (cancelled) return
-          setDisplay(d => {
-            const copy = [...d]
-            copy[i] = lines[i].slice(0, pos + 1)
-            return copy
-          })
-          await new Promise(r => setTimeout(r, typeSpeed[i]))
-        }
+    async function type1() {
+      for (let i = 0; i < line1.length; i++) {
+        if (cancelled) return
+        setDisplay1(line1.slice(0, i + 1))
+        await new Promise(r => setTimeout(r, typeSpeed1))
       }
-      setCurrent(-1) // no cursor after done
+      // once done, show prompt2 and queue phase 2
+      setShowPrompt2(true)
+      const t2 = setTimeout(() => setShowType2(true), betweenDelay)
+      return () => clearTimeout(t2)
     }
 
-    run()
+    type1()
     return () => { cancelled = true }
-  }, [])
+  }, [showType1])
+
+  // Phase 2: type line2 when showType2 turns true
+  useEffect(() => {
+    if (!showType2) return
+    let cancelled = false
+
+    async function type2() {
+      for (let i = 0; i < line2.length; i++) {
+        if (cancelled) return
+        setDisplay2(line2.slice(0, i + 1))
+        await new Promise(r => setTimeout(r, typeSpeed2))
+      }
+    }
+
+    type2()
+    return () => { cancelled = true }
+  }, [showType2])
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
@@ -80,15 +96,21 @@ export default function Hero() {
 
         {/* Content */}
         <div className="p-6 font-mono text-base text-green-500">
-          {lines.map((_, i) => (
-            <p key={i} className={i === 0 ? 'mb-1' : 'mt-1'}>
-              C:\Users\Guest&gt;&nbsp;
-              {showPrompt[i] && display[i]}
-              {showPrompt[i] && current === i && cursor && (
-                <span className="inline-block">▄</span>
-              )}
+          {/* Line 1 */}
+          <p className="mb-1">
+            C:\Users\Guest&gt;{' '}
+            {display1}
+            {showType1 && cursor && <span className="inline-block">▄</span>}
+          </p>
+
+          {/* Line 2 */}
+          {showPrompt2 && (
+            <p className="mt-1">
+              C:\Users\Guest&gt;{' '}
+              {display2}
+              {showType2 && cursor && <span className="inline-block">▄</span>}
             </p>
-          ))}
+          )}
         </div>
       </div>
     </section>
