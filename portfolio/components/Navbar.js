@@ -1,10 +1,8 @@
 // components/Navbar.js
 import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/router'
 import { FaHome } from 'react-icons/fa'
 
 export default function Navbar() {
-  const router = useRouter()
   const items = [
     { hash: 'home',       label: <FaHome size={18}/> },
     { hash: 'about',      label: 'About' },
@@ -16,31 +14,43 @@ export default function Navbar() {
 
   const ulRef        = useRef(null)
   const indicatorRef = useRef(null)
-  const itemRefs     = useRef([])
-
+  const itemRefs     = useRef([])    // will hold refs to each <a>
   const [activeIdx, setActiveIdx] = useState(0)
 
-  // 1) Update activeIdx via Next.js router events
+  // 1) Observe each section and update activeIdx + URL when 50% visible
   useEffect(() => {
-    const onHashChange = (url) => {
-      const hash = url.split('#')[1] || 'home'
-      const idx = items.findIndex((i) => i.hash === hash)
-      setActiveIdx(idx >= 0 ? idx : 0)
-    }
-    // initial
-    onHashChange(router.asPath)
-    router.events.on('hashChangeComplete', onHashChange)
-    return () => {
-      router.events.off('hashChangeComplete', onHashChange)
-    }
-  }, [router.events, router.asPath, items])
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio >= 0.5) {
+            const id = entry.target.id
+            const idx = items.findIndex((it) => it.hash === id)
+            if (idx >= 0 && idx !== activeIdx) {
+              setActiveIdx(idx)
+              // update URL without scrolling
+              window.history.replaceState(null, '', `#${id}`)
+            }
+          }
+        })
+      },
+      { root: null, threshold: 0.5 }
+    )
 
-  // 2) Slide the indicator over the active <a>
+    // attach to each section by id
+    items.forEach((it) => {
+      const sec = document.getElementById(it.hash)
+      if (sec) observer.observe(sec)
+    })
+
+    return () => observer.disconnect()
+  }, [activeIdx, items])
+
+  // 2) Move the indicator pill whenever activeIdx changes
   useEffect(() => {
     const ulRect = ulRef.current.getBoundingClientRect()
-    const el     = itemRefs.current[activeIdx]
-    if (!el) return
-    const { left, width } = el.getBoundingClientRect()
+    const linkEl = itemRefs.current[activeIdx]
+    if (!linkEl) return
+    const { left, width } = linkEl.getBoundingClientRect()
     indicatorRef.current.style.width     = `${width}px`
     indicatorRef.current.style.transform = `translateX(${left - ulRect.left}px)`
   }, [activeIdx])
@@ -70,6 +80,7 @@ export default function Navbar() {
         {items.map((it, i) => (
           <li key={it.hash} className="relative">
             <a
+              id={`nav-${it.hash}`}
               href={`#${it.hash}`}
               ref={(el) => (itemRefs.current[i] = el)}
               className="flex items-center space-x-2 px-3 py-1 rounded-full hover:bg-white/20 transition-colors"
