@@ -9,7 +9,7 @@ export default function Navbar() {
 
   // Define your nav items (hash and label)
   const items = [
-    { hash: 'home', label: 'Profile', icon: <FaHome size={20}/> },
+    { hash: 'home', label: 'Home', icon: <FaHome size={20}/> },
     { hash: 'about', label: 'About' },
     { hash: 'skills', label: 'Skills' },
     { hash: 'experience', label: 'Experience' },

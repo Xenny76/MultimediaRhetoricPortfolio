@@ -5,7 +5,7 @@ export default function ScrollSpy() {
   const router = useRouter()
 
   useEffect(() => {
-    const sectionIds = ['home', 'skills', 'about', 'career', 'projects', 'contact']  // your section IDs
+    const sectionIds = ['home', 'about', 'about', 'experience', 'projects', 'contact']  // your section IDs
     const options = {
       root: null,
       rootMargin: '0px 0px -50% 0px',   // trigger when the section’s midpoint reaches the top half of viewport
