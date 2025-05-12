@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 bg-gray-600">
+    <section id="skills" className="min-h-screen flex flex-col justify-center py-16 bg-gray-600">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
