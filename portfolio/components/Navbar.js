@@ -45,15 +45,20 @@ export default function Navbar() {
     return () => observer.disconnect()
   }, [activeIdx, items])
 
-  // 2) Move the indicator pill whenever activeIdx changes
+  // Move the indicator pill on activeIdx change
   useEffect(() => {
-    const ulRect = ulRef.current.getBoundingClientRect()
     const linkEl = itemRefs.current[activeIdx]
     if (!linkEl) return
-    const { left, width } = linkEl.getBoundingClientRect()
-    indicatorRef.current.style.width     = `${width}px`
-    indicatorRef.current.style.transform = `translateX(${left - ulRect.left}px)`
+
+    // offsetLeft/offsetWidth are relative to the ul (position:relative)
+    const left  = linkEl.offsetLeft
+    const width = linkEl.offsetWidth
+
+    const bar = indicatorRef.current
+    bar.style.width     = `${width}px`
+    bar.style.left      = `${left}px`
   }, [activeIdx])
+
 
   return (
     <nav className="fixed top-4 w-full flex justify-center z-50 pointer-events-none">
@@ -73,8 +78,9 @@ export default function Navbar() {
       >
         {/* indicator pill */}
         <div
-          ref={indicatorRef}
-          className="absolute -top-2 h-1.5 bg-white rounded-full transition-all duration-300"
+            ref={indicatorRef}
+            className="absolute -top-2 h-1.5 bg-white rounded-full transition-all duration-300"
+            style={{ left: 0, width: 0 }}
         />
 
         {items.map((it, i) => (
