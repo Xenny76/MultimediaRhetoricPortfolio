@@ -1,30 +1,30 @@
 // components/ScrollSpy.js
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function ScrollSpy() {
+  const router = useRouter()
+
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]')
     if (!sections.length) return
 
-    const observer = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // whenever at least 50% of the section is visible
           if (entry.intersectionRatio >= 0.5) {
             const id = entry.target.id
-            window.history.replaceState(null, '', `#${id}`)
+            // THIS will emit Next.js hashChangeComplete
+            router.replace({ hash: `#${id}` }, undefined, { shallow: true })
           }
         })
       },
-      {
-        root: null,           // the viewport
-        threshold: [0.5],     // fire when crossing 50% visible (both directions)
-      }
+      { root: null, threshold: 0.5 }
     )
 
-    sections.forEach((sec) => observer.observe(sec))
-    return () => observer.disconnect()
-  }, [])
+    sections.forEach((s) => obs.observe(s))
+    return () => obs.disconnect()
+  }, [router])
 
   return null
 }

@@ -1,42 +1,47 @@
+// components/Navbar.js
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import { FaHome } from 'react-icons/fa'
 
 export default function Navbar() {
-  // your nav items
+  const router = useRouter()
   const items = [
-    { hash: 'home',   label: <FaHome size={18}/> },
-    { hash: 'about', label: 'About' },
-    { hash: 'skills',  label: 'Skills' },
+    { hash: 'home',       label: <FaHome size={18}/> },
+    { hash: 'about',      label: 'About' },
+    { hash: 'skills',     label: 'Skills' },
     { hash: 'experience', label: 'Experience' },
-    { hash: 'projects', label: 'Projects' },
-    { hash: 'contact',  label: 'Contact' },
+    { hash: 'projects',   label: 'Projects' },
+    { hash: 'contact',    label: 'Contact' },
   ]
 
-  const ulRef = useRef(null)
+  const ulRef        = useRef(null)
   const indicatorRef = useRef(null)
-  const itemRefs = useRef([])
+  const itemRefs     = useRef([])
 
   const [activeIdx, setActiveIdx] = useState(0)
 
-  // Update activeIdx when hash changes
+  // 1) Update activeIdx via Next.js router events
   useEffect(() => {
-    const update = () => {
-      const h = window.location.hash.replace('#','') || 'home'
-      const idx = items.findIndex(i => i.hash === h)
-      setActiveIdx(idx < 0 ? 0 : idx)
+    const onHashChange = (url) => {
+      const hash = url.split('#')[1] || 'home'
+      const idx = items.findIndex((i) => i.hash === hash)
+      setActiveIdx(idx >= 0 ? idx : 0)
     }
-    window.addEventListener('hashchange', update)
-    update() // init
-    return () => window.removeEventListener('hashchange', update)
-  }, [items])
+    // initial
+    onHashChange(router.asPath)
+    router.events.on('hashChangeComplete', onHashChange)
+    return () => {
+      router.events.off('hashChangeComplete', onHashChange)
+    }
+  }, [router.events, router.asPath, items])
 
-  // Move the indicator pill on activeIdx change
+  // 2) Slide the indicator over the active <a>
   useEffect(() => {
     const ulRect = ulRef.current.getBoundingClientRect()
-    const el = itemRefs.current[activeIdx]
+    const el     = itemRefs.current[activeIdx]
     if (!el) return
     const { left, width } = el.getBoundingClientRect()
-    indicatorRef.current.style.width = `${width}px`
+    indicatorRef.current.style.width     = `${width}px`
     indicatorRef.current.style.transform = `translateX(${left - ulRect.left}px)`
   }, [activeIdx])
 
@@ -63,13 +68,10 @@ export default function Navbar() {
         />
 
         {items.map((it, i) => (
-          <li
-            key={it.hash}
-            ref={el => itemRefs.current[i] = el}
-            className="relative"
-          >
+          <li key={it.hash} className="relative">
             <a
               href={`#${it.hash}`}
+              ref={(el) => (itemRefs.current[i] = el)}
               className="flex items-center space-x-2 px-3 py-1 rounded-full hover:bg-white/20 transition-colors"
             >
               {it.label}
