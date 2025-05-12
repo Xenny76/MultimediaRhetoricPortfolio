@@ -5,7 +5,7 @@ export default function About() {
       <p className="text-gray-500 max-w-2xl mx-auto mb-4">
         I started my coding journey with Java, JS, and C#, building a strong foundation in software development. Throughout my time at college, I&apos;ve learned many useful skills and frameworks for the industry.
       </p>
-      <p className="text-gray-500 max-w-2xl mx-auto">
+      <p className="text-gray-500 max-w-2xl mx-auto mb-4">
         According to the 2024 Stackoverflow survey: JS, HTML/CSS, Java, and C# are all in the top 8 of professional developers, and according to the 2024 Jetbrains State of Developer Ecosystem Report they are all within the top 9 languages.
       </p>
       <p className="text-gray-500 max-w-2xl mx-auto">
