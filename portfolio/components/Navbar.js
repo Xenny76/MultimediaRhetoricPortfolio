@@ -6,11 +6,12 @@ import Link from 'next/link'
 export default function Navbar() {
   const router = useRouter()
   const items = [
-    { hash: 'home', label: 'Profile', icon: <FaHome size={20}/> },
-    { hash: 'skills', label: 'Skills' },
+    { hash: 'home', label: 'Home', icon: <FaHome size={20}/> },
     { hash: 'about', label: 'About' },
-    { hash: 'career', label: 'Career' },
+    { hash: 'skills', label: 'Skills' },
+    { hash: 'experience', label: 'Experience' },
     { hash: 'projects', label: 'Projects' },
+    { hash: 'contact', label: 'Contact' }
   ]
 
   const ulRef = useRef(null)
