@@ -13,10 +13,10 @@ export default function Skills() {
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Skills</h2>
         <ul className="list-disc list-inside space-y-2 text-gray-800 max-w-2xl mx-auto">
-          <li>Front-End Development – React, HTML, CSS, TailwindCSS</li>
-          <li>Back-End Development – Node.js, Express, Next.js</li>
-          <li>Databases – MySQL, MongoDB</li>
-          <li>Languages – Java, C#, JS, C++</li>
+          <li>Front-End Development - React, HTML, CSS, TailwindCSS</li>
+          <li>Back-End Development - Node.js, Express, Next.js</li>
+          <li>Databases - MySQL, MongoDB</li>
+          <li>Languages - Java, C#, JS, C++</li>
         </ul>
       </motion.div>
     </section>
