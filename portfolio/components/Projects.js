@@ -4,21 +4,21 @@ import React from 'react'
 const projects = [
   {
     title: "Conway's Game of Life",
-    imageSrc: "/images/electron-manager.png",
+    imageSrc: "/electron-manager.png",
     description:
       "Conway's Game of Life with a customizable grid size made in C#",
     demoUrl: null,
   },
   {
     title: "Notes++",
-    imageSrc: "/images/jwt-auth.png",
+    imageSrc: "/jwt-auth.png",
     description:
       "A desktop note-taking app with folders, favoriting, preset text formatting, and subsections",
     demoUrl: null,
   },
   {
     title: "Blep Blip Blop",
-    imageSrc: "/images/portfolio.png",
+    imageSrc: "/BlepBlipBlop.png",
     description:
       "A goal tracker for yourself or teams, with a calender showing upcoming goals and different levels of visibility through management levels",
     demoUrl: null,
