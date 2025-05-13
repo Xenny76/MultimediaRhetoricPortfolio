@@ -72,7 +72,7 @@ export default function Hero() {
   }, [showType2])
 
   return (
-    <section id="home" className="flex flex-col items-center justify-center h-screen pt-16 text-white bg-gradient-to-b from-black to-gray-900">
+    <section id="home" className="flex flex-col items-center justify-center h-screen pt-16 text-white">
       <h1 className="text-4xl sm:text-6xl font-bold mb-6">
         Hi, I&apos;m{' '}
         <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-pulse">

@@ -3,7 +3,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="h-screen w-full bg-gray-900 text-gray-200 flex items-center"
+      className="h-screen w-full text-gray-200 flex items-center"
     >
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-semibold mb-4">Contact</h2>

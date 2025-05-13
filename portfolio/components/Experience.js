@@ -2,7 +2,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-screen w-full bg-gray-900 text-gray-200 flex items-center"
+      className="h-screen w-full text-gray-200 flex items-center"
     >
       <div className="container mx-auto px-4">
         {/* Main heading */}

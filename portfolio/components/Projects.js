@@ -29,7 +29,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="h-screen w-full bg-gray-900 text-gray-200 flex items-center"
+      className="h-screen w-full text-gray-200 flex items-center"
     >
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-12">Projects</h2>

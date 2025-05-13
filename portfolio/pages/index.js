@@ -7,7 +7,7 @@ import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 export default function Home() {
   return (
-    <>
+    <div className="bg-gradient-to-b from-black via-gray-900 to-gray-700">
       <Navbar/>
       <Hero/>
       <About/>
@@ -15,6 +15,6 @@ export default function Home() {
       <Experience/>
       <Projects/>
       <Contact/>
-    </>
+    </div>
   );
 }
