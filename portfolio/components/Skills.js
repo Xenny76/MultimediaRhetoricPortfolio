@@ -1,28 +1,4 @@
 // components/Skills.js
-import { motion } from 'framer-motion';
-
-export default function Skills() {
-  return (
-    <section id="skills" className="h-screen flex flex-col justify-center text-gray-200">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-        className="container mx-auto"
-      >
-        <h2 className="text-2xl font-bold mb-4 text-center">Skills</h2>
-        <ul className="list-disc list-inside space-y-2 text-gray-500 max-w-2xl mx-auto">
-          <li>Front-End Development - React, HTML, CSS, TailwindCSS</li>
-          <li>Back-End Development - Node.js, Express, Next.js</li>
-          <li>Databases - MySQL, MongoDB</li>
-          <li>Languages - Java, C#, JS, C++</li>
-        </ul>
-      </motion.div>
-    </section>
-  );
-}
-// components/Skills.js
 import { FaReact, FaNodeJs, FaDatabase, FaHtml5, FaCss3Alt, FaJsSquare } from 'react-icons/fa'
 import { SiCplusplus, SiCsharp, SiJava, SiTailwindcss } from 'react-icons/si'
 
