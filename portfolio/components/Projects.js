@@ -5,7 +5,7 @@ import Image from 'next/image'
 const projects = [
   {
     title: "Conway's Game of Life",
-    imageSrc: "/electron-manager.png",
+    imageSrc: "/Conways.gif",
     description:
       "Conway's Game of Life with a customizable grid size made in C#",
     demoUrl: null,
@@ -53,6 +53,7 @@ export default function Projects() {
                     src={p.imageSrc}
                     alt={p.title}
                     className="object-cover h-48 w-full"
+                    unoptimized={p.imageSrc.toLowerCase().endsWith('.gif')}
                   />
                 ) : (
                   <div className="text-gray-500">No preview</div>
