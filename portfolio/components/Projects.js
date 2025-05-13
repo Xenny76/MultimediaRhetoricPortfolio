@@ -18,7 +18,7 @@ const projects = [
   },
   {
     title: "Blep Blip Blop",
-    imageSrc: "/BlepBlipBlop.png",
+    imageSrc: "/BlepBlipBlop.PNG",
     description:
       "A goal tracker for yourself or teams, with a calender showing upcoming goals and different levels of visibility through management levels",
     demoUrl: null,
@@ -48,7 +48,7 @@ export default function Projects() {
               {/* Image area */}
               <div className="flex-1 bg-gray-700 flex items-center justify-center">
                 {p.imageSrc ? (
-                  <img
+                  <Image
                     src={p.imageSrc}
                     alt={p.title}
                     className="object-cover h-48 w-full"
