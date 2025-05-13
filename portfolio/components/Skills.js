@@ -1,6 +1,7 @@
 // components/Skills.js
 import { FaReact, FaNodeJs, FaDatabase, FaHtml5, FaCss3Alt, FaJsSquare } from 'react-icons/fa'
-import { SiCplusplus, SiCsharp, SiJava, SiTailwindcss } from 'react-icons/si'
+import { SiCplusplus, SiTailwindcss } from 'react-icons/si'
+import { DiJava, DiDotnet } from 'react-icons/di'
 
 const skills = [
   { name: 'React',       Icon: FaReact,       level: 50 },
@@ -11,8 +12,8 @@ const skills = [
   { name: 'CSS3',        Icon: FaCss3Alt,     level: 95 },
   { name: 'Databases',   Icon: FaDatabase,    level: 70 },
   { name: 'C++',         Icon: SiCplusplus,   level: 60 },
-  { name: 'C#',          Icon: SiCsharp,      level: 100},
-  { name: 'Java',        Icon: SiJava,        level: 100},
+  { name: 'C#',          Icon: DiDotnet,      level: 100},
+  { name: 'Java',        Icon: DiJava,        level: 100},
   { name: 'TailwindCSS', Icon: SiTailwindcss, level: 55}
 ]
 
