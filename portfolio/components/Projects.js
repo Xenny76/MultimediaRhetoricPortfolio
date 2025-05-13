@@ -7,22 +7,19 @@ const projects = [
     title: "Conway's Game of Life",
     imageSrc: "/Conways.gif",
     description:
-      "Conway's Game of Life with a customizable grid size made in C#",
-    demoUrl: null,
+      "Conway's Game of Life with a customizable grid size made in C#"
   },
   {
     title: "Notes++",
-    imageSrc: "/jwt-auth.png",
+    imageSrc: "/NotesPlusPlus.PNG",
     description:
-      "A desktop note-taking app with folders, favoriting, preset text formatting, and subsections",
-    demoUrl: null,
+      "A desktop note-taking app with folders, favoriting, preset text formatting, and subsections"
   },
   {
     title: "Blep Blip Blop",
     imageSrc: "/BlepBlipBlop.PNG",
     description:
-      "A goal tracker for yourself or teams, with a calender showing upcoming goals and different levels of visibility through management levels",
-    demoUrl: null,
+      "A goal tracker for yourself or teams, with a calender showing upcoming goals and different levels of visibility through management levels"
   },
 ]
 
@@ -63,16 +60,6 @@ export default function Projects() {
               {/* Description */}
               <div className="p-4 flex flex-col flex-1 justify-between">
                 <p className="text-gray-300 flex-1">{p.description}</p>
-                {p.demoUrl && (
-                  <a
-                    href={p.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-block text-sm text-green-400 hover:underline"
-                  >
-                    Live Demo →
-                  </a>
-                )}
               </div>
             </div>
           ))}
