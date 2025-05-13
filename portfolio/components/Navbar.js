@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { FaHome } from 'react-icons/fa'
 
-export default function Navbar() {
-  const items = [
+const items = [
     { hash: 'home',       label: <FaHome size={18}/> },
     { hash: 'about',      label: 'About' },
     { hash: 'skills',     label: 'Skills' },
@@ -10,7 +9,8 @@ export default function Navbar() {
     { hash: 'projects',   label: 'Projects' },
     { hash: 'contact',    label: 'Contact' },
   ]
-
+  
+export default function Navbar() {
   const ulRef        = useRef(null)
   const indicatorRef = useRef(null)
   const itemRefs     = useRef([])
