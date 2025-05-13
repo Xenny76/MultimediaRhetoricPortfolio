@@ -3,25 +3,25 @@ import React from 'react'
 
 const projects = [
   {
-    title: "Electron Download Manager",
+    title: "Conway's Game of Life",
     imageSrc: "/images/electron-manager.png",
     description:
-      "A cross-platform download manager built with Electron.js, featuring pause/resume, multi-threaded downloads, and a modern UI.",
-    demoUrl: "https://example.com/electron",
-  },
-  {
-    title: "JWT Auth API",
-    imageSrc: "/images/jwt-auth.png",
-    description:
-      "A secure RESTful API in Node.js/Express using JWT for stateless authentication, role-based access control, and refresh tokens.",
+      "Conway's Game of Life with a customizable grid size made in C#",
     demoUrl: null,
   },
   {
-    title: "Portfolio Website",
+    title: "Notes++",
+    imageSrc: "/images/jwt-auth.png",
+    description:
+      "A desktop note-taking app with folders, favoriting, preset text formatting, and subsections",
+    demoUrl: null,
+  },
+  {
+    title: "Blep Blip Blop",
     imageSrc: "/images/portfolio.png",
     description:
-      "This very site! Built with Next.js, Tailwind CSS, and Framer Motion—fully responsive with smooth scroll and typing animations.",
-    demoUrl: "https://your-portfolio.vercel.app",
+      "A goal tracker for yourself or teams, with a calender showing upcoming goals and different levels of visibility through management levels",
+    demoUrl: null,
   },
 ]
 
@@ -29,7 +29,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="h-screen flex flex-col justify-center container mx-auto px-4 bg-gray-900 text-gray-200"
+      className="h-screen flex flex-col justify-center container mx-auto bg-gray-900 text-gray-200"
     >
       <h2 className="text-3xl font-semibold text-center mb-12">Projects</h2>
 
